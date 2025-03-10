@@ -10,6 +10,8 @@ gemini_llm = LLM(
     model = "gemini/gemini-2.0-flash",
     api_key = GEMINI_API_KEY
 )
+SERPER_API_KEY = os.getenv("SERPER_DEV_KEY")
+serper = SerperDevTool()
 
 def generate_flashcards(topic):
     """Creates flashcards using CrewAI for the given topic."""

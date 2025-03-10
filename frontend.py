@@ -8,6 +8,10 @@ st.write("Generate AI-powered flashcards on any topic!")
 
 st.markdown("""
     <style>
+    html, body, .stApp {
+        background-color: white !important;
+        color: black !important;
+    }
     .stButton > button {
         background-color: #695959 !important;
         color: white !important;
@@ -44,6 +48,7 @@ if st.button("Generate Flashcards"):
 
 # If flashcards exist, display the current flashcard using a container
 if st.session_state.flashcards:
+    st.header("Flashcards")
     current_flashcard = st.session_state.flashcards[st.session_state.current_index]
     
     # Ensure the flashcard has the expected keys
