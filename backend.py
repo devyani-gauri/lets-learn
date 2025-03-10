@@ -19,7 +19,7 @@ def generate_flashcards(topic):
         role="Flashcard Creator",
         goal=f"Generate flashcards on {topic}.",
         backstory="You are an expert tutor who creates concise, easy-to-understand flashcards.",
-        llm = gemini_llm,
+        llm=gemini_llm,
         verbose=True
     )
 
@@ -42,13 +42,30 @@ def generate_flashcards(topic):
     # Create Crew and Assign Task
     crew = Crew(
         agents=[flashcard_agent],
-          tasks=[flashcard_task]
-          )
+        tasks=[flashcard_task]
+    )
 
     # Run CrewAI
     result = crew.kickoff()
-    return result.raw.split('\n\n')
+
+    if not isinstance(result.raw, str):
+        return []
+    
+    # Split the raw output into segments based on double newlines
+    flashcards = []
+    raw_cards = result.raw.split("\n\n")
+    
+    # For each segment, assume the first line is the question and the second is the answer
+    for segment in raw_cards:
+        lines = segment.strip().split("\n")
+        if len(lines) >= 2:
+            question = lines[0].replace("Q:", "").strip()
+            answer = lines[1].replace("A:", "").strip()
+            flashcards.append({"question": question, "answer": answer})
+    
+    return flashcards
 
 if __name__ == "__main__":
     result = generate_flashcards("Mitochondria")
     print("\nGenerated Flashcards:")
+    print(result)
