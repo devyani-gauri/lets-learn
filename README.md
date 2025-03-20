@@ -50,8 +50,8 @@
    - [ ] New scoring agent with memory
   
 3. **UI/UX Improvements**  
-   - [ ] Add loading bar
-   - [ ] Add progress indicator (e.g., “Card X of Y”)  
+   - [x] Add loading bar
+   - [x] Add progress indicator (e.g., “Card X of Y”)  
    - [ ] Consider multi-page Streamlit layout (“Review Sessions,” “New Deck,” etc.)  
    - [ ] Refine styling, responsiveness, and instructions
    
