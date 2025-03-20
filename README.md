@@ -1,6 +1,6 @@
 # :sparkles: Let's-Learn: AI Flashcard Generator :sparkles:
 
-**Welcome to the Lets-Learn project!** This app uses CrewAI to automatically generate flashcards for any topic, providing a fun and interactive way to study. Below is a fancy Kanban-style **Task Progress Manager** to keep track of features and improvements.
+**Welcome to the Lets-Learn project!** This app uses CrewAI to automatically generate flashcards for any topic, providing a fun and interactive way to study. Below is the **Task Progress Manager** to keep track of features and improvements.
 
 ---
 
