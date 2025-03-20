@@ -48,6 +48,13 @@
    - [ ] Compare user input with correct answer & mark correct/incorrect  
    - [ ] Store correctness data in session state  
    - [ ] New scoring agent with memory
+  
+3. **UI/UX Improvements**  
+   - [ ] Add loading bar
+   - [ ] Add progress indicator (e.g., “Card X of Y”)  
+   - [ ] Consider multi-page Streamlit layout (“Review Sessions,” “New Deck,” etc.)  
+   - [ ] Refine styling, responsiveness, and instructions
+   
 
 ---
 
@@ -72,6 +79,7 @@
    - [ ] Add progress indicator (e.g., “Card X of Y”)  
    - [ ] Consider multi-page Streamlit layout (“Review Sessions,” “New Deck,” etc.)  
    - [ ] Refine styling, responsiveness, and instructions
+   - [ ] Add loading bar
 
 5. **Testing & Deployment Strategy**  
    - [ ] Write unit tests (e.g., `pytest`)  
