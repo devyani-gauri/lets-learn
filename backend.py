@@ -63,7 +63,7 @@ def generate_flashcards(topic):
 
     search_task = Task(
         description=f"""
-        Search the internet using the SerperDevTool using the SEO keywords from the output from the planner agent. 
+        Search the internet using the SearchTool using the SEO keywords from the output from the planner agent. 
         Search through only 1 internet resource per SEO keyword.
         Return 3 bullet points per topic that can be converted into flashcards. 
         """,
