@@ -29,29 +29,39 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Define the Cute Loading GIF (Tenor link)
+# 3. Loading GIF
 LOADING_BAR_URL = "https://media.tenor.com/Kwq2I-vIuOQAAAAi/downsign-loading.gif"
 
-# 4. Create/Manage Session State
+# 4. Session State Initialization
 if "flashcards" not in st.session_state:
     st.session_state.flashcards = []
 if "current_index" not in st.session_state:
     st.session_state.current_index = 0
 
-# 5. Input for Topic
+# 5. Helper Functions for Next/Previous
+def go_to_next_card():
+    """Increment the current index if not at the end of the deck."""
+    if st.session_state.current_index < len(st.session_state.flashcards) - 1:
+        st.session_state.current_index += 1
+
+def go_to_previous_card():
+    """Decrement the current index if not at the beginning of the deck."""
+    if st.session_state.current_index > 0:
+        st.session_state.current_index -= 1
+
+# 6. Input for Topic
 topic = st.text_input("Enter a topic for flashcards:")
 
-# 6. Button to Generate Flashcards
+# 7. Generate Flashcards Button
 if st.button("Generate Flashcards"):
     if topic.strip():
         # Create a placeholder for the loading animation
         loading_placeholder = st.empty()
 
-        # Fill the placeholder with a loading message, the GIF, and a progress bar
+        # Fill the placeholder with a loading message & GIF
         with loading_placeholder.container():
             st.write("### Magically flying across the world to find your flashcards, please wait...")
             st.image(LOADING_BAR_URL, width=300)
-
 
         # Generate flashcards (this might take some time depending on your LLM)
         flashcards = generate_flashcards(topic)
@@ -61,25 +71,33 @@ if st.button("Generate Flashcards"):
 
         if flashcards and isinstance(flashcards, list):
             st.session_state.flashcards = flashcards
-            st.session_state.current_index = 0  # reset to first card
+            st.session_state.current_index = 0
             st.success("Flashcards generated successfully!")
         else:
             st.error("No flashcards were generated. Please try a different topic.")
     else:
         st.warning("Please enter a topic before generating flashcards.")
 
-# 7. Display Flashcards (if any)
+# 8. Display Flashcards (if any)
 if st.session_state.flashcards:
     st.header("Flashcards")
-    current_flashcard = st.session_state.flashcards[st.session_state.current_index]
-    
+
+    # Show "Card X of Y"
+    total_cards = len(st.session_state.flashcards)
+    current_idx = st.session_state.current_index
+
+    st.write(f"**Card {current_idx + 1} of {total_cards}**")
+    st.progress((current_idx + 1) / total_cards)
+
+    current_flashcard = st.session_state.flashcards[current_idx]
+
     # Validate the flashcard structure
     if not (isinstance(current_flashcard, dict) and "question" in current_flashcard and "answer" in current_flashcard):
         st.error("Flashcard format is incorrect. Please regenerate flashcards.")
     else:
         question = current_flashcard["question"]
         answer = current_flashcard["answer"]
-        
+
         # Flip-card HTML
         with st.container():
             html_code = f"""
@@ -150,13 +168,9 @@ if st.session_state.flashcards:
             """
             st.components.v1.html(html_code, height=300, scrolling=False)
 
-        # Navigation buttons
+        # 9. Navigation Buttons Using on_click Callbacks
         col_left, col_spacer, col_right = st.columns([3, 10, 3])
         with col_left:
-            if st.button("⬅️ Previous", key="prev"):
-                if st.session_state.current_index > 0:
-                    st.session_state.current_index -= 1
+            st.button("⬅️ Previous", on_click=go_to_previous_card)
         with col_right:
-            if st.button("Next ➡️", key="next"):
-                if st.session_state.current_index < len(st.session_state.flashcards) - 1:
-                    st.session_state.current_index += 1
+            st.button("Next ➡️", on_click=go_to_next_card)

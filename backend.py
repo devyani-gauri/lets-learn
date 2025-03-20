@@ -85,8 +85,8 @@ def generate_flashcards(topic):
     # Define Task
     flashcard_task = Task(
         description=f"""
-        Create 10 flashcards about '{topic}' using the output from the search agent.
-        Choose 10 questions from the 25 possible questions you have from the search agent's output. 
+        Create 5 flashcards about '{topic}' using the output from the search agent.
+        Choose 5 questions from the 25 possible questions you have from the search agent's output. 
         Choose one bullet point per topic and convert it into a flashcard.
         Each flashcard should have a question and an answer.
         
@@ -96,7 +96,7 @@ def generate_flashcards(topic):
         
         Make sure the answers are concise and accurate.
         """,
-        expected_output="10 flashcards, each with a question and an answer",
+        expected_output="5 flashcards, each with a question and an answer",
         agent=flashcard_agent
     )
 
