@@ -46,9 +46,8 @@
 2. **Basic Scoring Mechanism**  
    - [ ] Prompt user for input before revealing correct answer  
    - [ ] Compare user input with correct answer & mark correct/incorrect  
-   - [ ] Store correctness data in session state
+   - [ ] Store correctness data in session state  
    - [ ] New scoring agent with memory
-   
 
 ---
 
@@ -60,25 +59,26 @@
    - [ ] Dynamically prioritize missed questions
 
 2. **Session Recording & Review System**  
-   - [ ] Integrate a database or file-based storage (memory within agents if needed) 
+   - [ ] Integrate a database or file-based storage (memory within agents if needed)  
    - [ ] Record session info (timestamps, performance, user)  
    - [ ] Build UI page to review past sessions & retake flashcards
 
-3. **Authentication**
-   - [ ] Sign up/login
-   - [ ] User data stored for tool with privacy integration
+3. **Authentication**  
+   - [ ] Sign up/login  
+   - [ ] Store user data securely  
+   - [ ] Ensure privacy integration (protect user info)
 
-3. **UI/UX Improvements**  
+4. **UI/UX Improvements**  
    - [ ] Add progress indicator (e.g., “Card X of Y”)  
    - [ ] Consider multi-page Streamlit layout (“Review Sessions,” “New Deck,” etc.)  
    - [ ] Refine styling, responsiveness, and instructions
 
-4. **Testing & Deployment Strategy**  
+5. **Testing & Deployment Strategy**  
    - [ ] Write unit tests (e.g., `pytest`)  
    - [ ] Add Continuous Integration (GitHub Actions, GitLab CI, etc.)  
    - [ ] Deploy (CrewAI backend + Streamlit app) on hosting platform
 
-5. **Performance & Caching**  
+6. **Performance & Caching**  
    - [ ] Cache LLM/search results to reduce repeated API calls  
    - [ ] Optimize CrewAI calls & possibly add concurrency handling  
    - [ ] Profile for bottlenecks (time/memory usage)
@@ -86,11 +86,10 @@
 ---
 
 ## Notes
-- CrewAI installation easiest with python 3.12
+- CrewAI installation easiest with Python 3.12
 
 ## :tada: Thank You!
 
-Thank you for checking out the Lets-Learn AI Flashcard Generator. 
+Thank you for checking out the Lets-Learn AI Flashcard Generator.
 
 :rocket: **Happy Learning!**
-
