@@ -1,17 +1,37 @@
 from crewai import Agent, Task, Crew, LLM, Process
-from crewai_tools import SerperDevTool
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_community.tools import TavilySearchResults
 from dotenv import load_dotenv
 import os
+from crewai.tools import BaseTool
+from pydantic import Field
 
 _ = load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 gemini_llm = LLM(
     model = "gemini/gemini-2.0-flash",
     api_key = GEMINI_API_KEY
 )
-SERPER_API_KEY = os.getenv("SERPER_API_KEY")
-serper = SerperDevTool()
+
+TAVILY_API_KEY = os.environ["TAVILY_API_KEY"]
+
+tavily = TavilySearchResults(
+    max_results=5,
+    search_depth="advanced",
+    include_answer=True,
+    include_raw_content=True,
+    include_images=True
+)
+
+class SearchTool(BaseTool):
+    name: str = "Search"
+    description: str = "Useful for search-based queries. Use this to find information about given topic."
+    search: TavilySearchResults = Field(default_factory=TavilySearchResults)
+
+    def _run(self, query: str) -> str:
+        try:
+            return self.search.run(query)
+        except Exception as e:
+            return f"Error performing search: {str(e)}"
 
 def generate_flashcards(topic):
     """Creates flashcards using CrewAI for the given topic."""
@@ -38,7 +58,7 @@ def generate_flashcards(topic):
         goal=f"Search the web for content that will be used to create flashcards on the topic: {topic} using the output from the planner agent",
         backstory="You are an expert researcher that can extract SEO keywords (combine if needed) from the output of the planner agent and search the internet",
         llm=gemini_llm,
-        tools=[serper]
+        tools=[SearchTool()]
     )
 
     search_task = Task(
